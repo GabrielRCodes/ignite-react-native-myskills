@@ -1,4 +1,6 @@
-import React from "react"; /* Sempre importar o react nos projetos */
+import React, {
+  useState,
+} from "react"; /* Sempre importar o react nos projetos */
 import {
   View,
   Text,
@@ -8,22 +10,42 @@ import {
 } from "react-native";
 
 export function Home() {
+  const [newSkill, setNewSkill] = useState(""); // Armazenar a nova skill
+  const [mySkills, setMySkills] = useState([]); // Armazenar todas as skills
+
+  // handle = É utilizado quando a função é disparada por uma interação do usuário
+  // EX => Quando o usuário clicar em algo
+
+  function handleAddSkill() {
+    setMySkills((oldState) => [...oldState, newSkill]);
+    //setMySkills([...mySkills, newSkill]);
+  }
+
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.title}>Welcome, Gabriel</Text>
-
         <TextInput
           style={styles.input}
           placeholder="New skill"
           placeholderTextColor="#555"
+          onChangeText={setNewSkill}
         />
 
-        <TouchableOpacity style={styles.button} activeOpacity={0.7}>
+        <TouchableOpacity
+          style={styles.button}
+          activeOpacity={0.7}
+          onPress={handleAddSkill}
+        >
           <Text style={styles.buttonText}>Add</Text>
         </TouchableOpacity>
 
-        <Text style={[styles.title, { marginTop: 50 }]}>My Skills</Text>
+        <Text style={[styles.title, { marginVertical: 30 }]}>My Skills</Text>
+        {mySkills.map((skill) => (
+          <TouchableOpacity style={styles.buttonSkill}>
+            <Text style={styles.textSkill}>{skill}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
     </>
   );
@@ -59,6 +81,18 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#FFF",
     fontSize: 17,
+    fontWeight: "bold",
+  },
+  buttonSkill: {
+    backgroundColor: "#1F1E25",
+    padding: 15,
+    borderRadius: 50,
+    alignItems: "center",
+    marginVertical: 10,
+  },
+  textSkill: {
+    color: "#FFF",
+    fontSize: 22,
     fontWeight: "bold",
   },
 });
