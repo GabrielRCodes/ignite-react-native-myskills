@@ -1,13 +1,10 @@
 import React, {
   useState,
 } from "react"; /* Sempre importar o react nos projetos */
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
+
+// Poucos elementos = ScrollView
+// Muitos elementos = FlatList
 
 import { Button } from "../components/Button";
 import { SkillCard } from "../components/SkillCard";
@@ -38,9 +35,14 @@ export function Home() {
         <Button onPress={handleAddSkill} />
 
         <Text style={[styles.title, { marginVertical: 30 }]}>My Skills</Text>
-        {mySkills.map((skill) => (
-          <SkillCard skill={skill} />
-        ))}
+
+        <FlatList
+          data={mySkills} // Coleção de dados obrigatória
+          keyExtractor={(item) => item} // Cada item é a própria chave
+          renderItem={({ item }) => (
+            <SkillCard skill={item} /> // Chaves têm que estar na hierarquia direta e não no componente
+          )} // Mostra o que será renderizado (Desestruturado)
+        />
       </View>
     </>
   );
