@@ -1,6 +1,6 @@
 import React, {
   useState,
-} from "react"; /* Sempre importar o react nos projetos */
+} from "react"; /* Sempre importar o react nos projetos */ // useNomeDoHook //
 import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
 
 // Poucos elementos = ScrollView
@@ -20,6 +20,12 @@ export function Home() {
     setMySkills((oldState) => [...oldState, newSkill]);
     //setMySkills([...mySkills, newSkill]);
   }
+  // Spread Operator (...), para não incluir um vetor dentro de outro vetor, mas sim trazer apenas os elementos.
+  // EX:
+  // Sem Spread Operator
+  // [[React Native, TypeScript], JavaScript]
+  // Com Spread Operator
+  // [React Native, TypeScript, JavaScript]
 
   return (
     <>
