@@ -1,4 +1,5 @@
 import React, {
+  useEffect,
   useState,
 } from "react"; /* Sempre importar o react nos projetos */ // useNomeDoHook //
 import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
@@ -12,6 +13,7 @@ import { SkillCard } from "../components/SkillCard";
 export function Home() {
   const [newSkill, setNewSkill] = useState(""); // Armazenar a nova skill
   const [mySkills, setMySkills] = useState([]); // Armazenar todas as skills
+  const [gretting, setGretting] = useState("");
 
   // handle = É utilizado quando a função é disparada por uma interação do usuário
   // EX => Quando o usuário clicar em algo
@@ -27,10 +29,32 @@ export function Home() {
   // Com Spread Operator
   // [React Native, TypeScript, JavaScript]
 
+  useEffect(() => {
+    const currentHour = new Date().getHours();
+    if (currentHour < 12) {
+      setGretting("Good morning");
+    } else if (currentHour >= 12 && currentHour < 18) {
+      setGretting("Good afternoon");
+    } else {
+      setGreeting("Good night");
+    }
+  }, []);
+
+  // UseEffect = Função
+  // Primeiro parâmetro: () => {}
+  // -- Arrow Function
+  // Separação: ,
+  // Segundo parâmetro: []
+  // -- Array de dependência, fica ouvindo as dependências
+  // -- Ao deixar vazio, o useEffect será feito quando a interface carregar, sempre
+
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.title}>Welcome, Gabriel</Text>
+
+        <Text style={styles.greetings}>{gretting}</Text>
+
         <TextInput
           style={styles.input}
           placeholder="New skill"
@@ -73,5 +97,8 @@ const styles = StyleSheet.create({
     padding: 15,
     marginTop: 30,
     borderRadius: 7,
+  },
+  greetings: {
+    color: "#fff",
   },
 });
