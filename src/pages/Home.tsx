@@ -39,6 +39,12 @@ export function Home() {
   // Com Spread Operator
   // [React Native, TypeScript, JavaScript]
 
+  function handleRemoveSkill(id: string) {
+    setMySkills(oldState => oldState.filter(
+      skill => skill.id !== id
+    ))
+  }
+
   useEffect(() => {
     const currentHour = new Date().getHours();
     if (currentHour < 12) {
@@ -84,7 +90,10 @@ export function Home() {
           data={mySkills} // Coleção de dados obrigatória
           keyExtractor={(item) => item.id} // Cada item é a própria chave
           renderItem={({ item }) => (
-            <SkillCard skill={item} /> // Chaves têm que estar na hierarquia direta e não no componente
+            <SkillCard 
+              skill={item.name} 
+              onPress={() => handleRemoveSkill(item.id)}
+            /> // Chaves têm que estar na hierarquia direta e não no componente
           )} // Mostra o que será renderizado (Desestruturado)
         />
       </View>
