@@ -10,16 +10,26 @@ import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
 import { Button } from "../components/Button";
 import { SkillCard } from "../components/SkillCard";
 
+interface SkillData {
+  id: string;
+  name: string;
+} // Interfaces sempre fora de funções
+
 export function Home() {
   const [newSkill, setNewSkill] = useState(""); // Armazenar a nova skill
-  const [mySkills, setMySkills] = useState([]); // Armazenar todas as skills
+  const [mySkills, setMySkills] = useState<SkillData[]>([]); // Armazenar todas as skills
   const [gretting, setGretting] = useState("");
 
   // handle = É utilizado quando a função é disparada por uma interação do usuário
   // EX => Quando o usuário clicar em algo
 
   function handleAddSkill() {
-    setMySkills((oldState) => [...oldState, newSkill]);
+    const data = {
+      id: String(new Date().getTime()),
+      name: newSkill
+    }
+
+    setMySkills((oldState) => [...oldState, data]);
     //setMySkills([...mySkills, newSkill]);
   }
   // Spread Operator (...), para não incluir um vetor dentro de outro vetor, mas sim trazer apenas os elementos.
@@ -36,7 +46,7 @@ export function Home() {
     } else if (currentHour >= 12 && currentHour < 18) {
       setGretting("Good afternoon");
     } else {
-      setGreeting("Good night");
+      setGretting("Good night");
     }
   }, []);
 
@@ -68,7 +78,7 @@ export function Home() {
 
         <FlatList
           data={mySkills} // Coleção de dados obrigatória
-          keyExtractor={(item) => item} // Cada item é a própria chave
+          keyExtractor={(item) => item.id} // Cada item é a própria chave
           renderItem={({ item }) => (
             <SkillCard skill={item} /> // Chaves têm que estar na hierarquia direta e não no componente
           )} // Mostra o que será renderizado (Desestruturado)
