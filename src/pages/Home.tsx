@@ -94,7 +94,7 @@ export function Home() {
               skill={item.name} 
               onPress={() => handleRemoveSkill(item.id)}
             /> // Chaves têm que estar na hierarquia direta e não no componente
-          )} // Mostra o que será renderizado (Desestruturado)
+          )} // Mostra o que será renderizado (Desestruturado
         />
       </View>
     </>
