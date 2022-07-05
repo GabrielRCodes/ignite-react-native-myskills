@@ -8,7 +8,7 @@ import { View, Text, StyleSheet, TextInput, FlatList } from "react-native";
 // Muitos elementos = FlatList
 
 import { Button } from "../components/Button";
-import { SkillCard } from "../components/SkillCard";
+import { SkillCard } from "../components/SkillCard"
 
 interface SkillData {
   id: string;
